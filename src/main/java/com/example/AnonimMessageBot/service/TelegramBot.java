@@ -13,7 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class TelegramBot extends TelegramLongPollingBot{
 
     final BotConfig config;
-    PersonList personList;
+    PersonList personList = new PersonList();
 
     public TelegramBot(BotConfig config){
         this.config = config;
@@ -26,23 +26,22 @@ public class TelegramBot extends TelegramLongPollingBot{
             long chatId = update.getMessage().getChatId();
             switch (messageText){
                 case "/start":
-                    StartCommandReceived(chatId, update.getMessage().getChat().getFirstName());
+                    StartCommandReceived(chatId);
                     break;
                 default:
-                    if(!personList.isPersonIn(chatId)){
+
                         Person newPerson = new Person(chatId);
                         personList.add(newPerson);
-                    }
-                    messageText = personList.getPersonById(chatId).getEmojiName() + "\n" + messageText;
 
+                    messageText = personList.getPersonById(chatId).getEmojiName() + "\n" + messageText;
                     sendMessage(1049967177, messageText);
             }
 
         }
     }
 
-    private void StartCommandReceived(long chatId, String userName){
-        String answer = "Привет, " + userName;
+    private void StartCommandReceived(long chatId){
+        String answer = "Привет, этот бот отправляет анонимные сообщения";
         sendMessage(chatId, answer);
     }
 

@@ -2,13 +2,15 @@ package com.example.AnonimMessageBot.database;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PersonList {
     ArrayList<Person> personList = new ArrayList<>();
 
 
     public void add(Person person){
-        personList.add(person);
+        this.personList.add(person);
     }
 
     public Person getPersonById(long chatId){
@@ -21,6 +23,9 @@ public class PersonList {
     }
 
     public boolean isPersonIn(long chatId){
+        if (this.personList == null){
+            return false;
+        }
         for (Person person : personList) {
             if(person.getId() == chatId){
                 return true;
@@ -28,4 +33,6 @@ public class PersonList {
         }
         return false;
     }
+
+
 }
