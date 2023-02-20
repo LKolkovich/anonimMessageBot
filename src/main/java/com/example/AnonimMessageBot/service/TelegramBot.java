@@ -34,6 +34,7 @@ public class TelegramBot extends TelegramLongPollingBot{
                         personList.add(newPerson);
                     }
                     messageText = personList.getPersonById(chatId).getEmojiName() + "\n" + messageText;
+
                     sendMessage(1049967177, messageText);
             }
 
